@@ -18,7 +18,7 @@ public class AutoPacketRunnable implements Runnable {
 
     private int messageIterator;
     private int previousMessageIndex;
-    private ZavAutoMessager zavAutoMessager;
+    private final ZavAutoMessager zavAutoMessager;
 
     public AutoPacketRunnable(ZavAutoMessager zavAutoMessager) {
         this.zavAutoMessager = zavAutoMessager;
@@ -27,7 +27,7 @@ public class AutoPacketRunnable implements Runnable {
     @Override
     public void run() {
         if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("enabled", true)) {
-            if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("requireplayersonline") && zavAutoMessager.getServer().getOnlinePlayers().length == 0) {
+            if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("requireplayersonline") && zavAutoMessager.getServer().getOnlinePlayers().isEmpty()) {
                 return;
             }
             boolean randomMessaging = ZavAutoMessager.getMainConfig().getConfig().getBoolean("messageinrandomorder", false);
@@ -76,7 +76,6 @@ public class AutoPacketRunnable implements Runnable {
             }
 
         }
-        return;
     }
 
     private int getRandomMessage() {
